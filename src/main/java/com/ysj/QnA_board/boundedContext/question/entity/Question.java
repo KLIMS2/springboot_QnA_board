@@ -1,18 +1,19 @@
 package com.ysj.QnA_board.boundedContext.question.entity;
 
+import com.ysj.QnA_board.boundedContext.answer.entity.Answer;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -31,4 +32,7 @@ public class Question
   @CreatedDate
   @Column(updatable = false)
   private LocalDateTime createData;
+
+  @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+  private List<Answer> answers = new ArrayList<>();
 }

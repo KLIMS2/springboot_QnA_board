@@ -37,4 +37,8 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	jvmArgs '-Xshare:off' // JVM 아규먼트 설정
+	jvmArgs += [
+			"-javaagent:${classpath.find { it.name.contains('byte-buddy-agent') }.absolutePath}"
+	]
 }
